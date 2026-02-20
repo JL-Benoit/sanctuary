@@ -11,13 +11,38 @@ ORDER BY count_of_cards DESC;
 
 -- How many cards per continent ?
 SELECT
-    category_name,
-    COUNT(fact_card_potential.category_id) AS count_of_cards
+    continent,
+    COUNT(dim_card.continent) AS count_of_continent
 FROM fact_card_potential
 LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
 LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id 
-GROUP BY category_name
-ORDER BY count_of_cards DESC;
+WHERE continent IS NOT NULL
+GROUP BY continent
+ORDER BY count_of_continent DESC;
+
+
+-- How many cards per animal icon ?
+SELECT
+    animal_tag,
+    COUNT(dim_card.animal_tag) AS count_of_animal_tags
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id 
+WHERE animal_tag IS NOT NULL
+GROUP BY animal_tag
+ORDER BY count_of_animal_tags DESC;
+
+
+-- How many animals can form pairs ?
+SELECT 
+    fact_card_potential.card_id,
+    card_name,
+    couple_bonus
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
+WHERE couple IS TRUE;
+
+
 
 
 -- Which cards are the most efficient to play?
@@ -93,3 +118,57 @@ LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.categor
 WHERE fact_card_potential.category_id = 1
 GROUP BY habitat_1
 ORDER BY avg_habitat_efficiency DESC;
+
+
+-- Which continent is the most efficient overall ?
+SELECT 
+    continent,
+    COUNT(fact_card_potential.card_id) AS total_card,
+    ROUND(AVG(potential_efficiency_ratio), 2) AS avg_continent_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE continent IS NOT NULL 
+GROUP BY continent
+ORDER BY avg_continent_efficiency DESC;
+
+
+-- Which continent is the most efficient for animals ?
+SELECT 
+    continent,
+    COUNT(fact_card_potential.card_id) AS total_card,
+    ROUND(AVG(potential_efficiency_ratio), 2) AS avg_continent_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 1 
+AND continent IS NOT NULL
+GROUP BY continent
+ORDER BY avg_continent_efficiency DESC;
+
+
+-- Which animal tag is the most efficient overall ?
+SELECT 
+    animal_tag,
+    COUNT(fact_card_potential.card_id) AS total_card,
+    ROUND(AVG(potential_efficiency_ratio), 2) AS avg_animal_tag_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE animal_tag IS NOT NULL 
+GROUP BY animal_tag
+ORDER BY avg_animal_tag_efficiency DESC;
+
+
+-- Which animal tag is the most efficient for animals ?
+SELECT 
+    animal_tag,
+    COUNT(fact_card_potential.card_id) AS total_card,
+    ROUND(AVG(potential_efficiency_ratio), 2) AS avg_animal_tag_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 1 
+AND animal_tag IS NOT NULL
+GROUP BY animal_tag
+ORDER BY avg_animal_tag_efficiency DESC;
