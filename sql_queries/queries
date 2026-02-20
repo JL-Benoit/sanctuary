@@ -49,8 +49,38 @@ LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 WHERE couple IS TRUE
 
 
+-- What is the average cost of all cards ?
+SELECT 
+    ROUND(AVG(action_cost),2) AS avg_cost
+FROM fact_card_potential
+LEFT JOIN dim_cost ON fact_card_potential.cost_id = dim_cost.cost_id
 
 
+-- What is the average cost of all cards (excluding those that dont cost anything) ?
+SELECT 
+    ROUND(AVG(action_cost),2) AS avg_cost
+FROM fact_card_potential
+LEFT JOIN dim_cost ON fact_card_potential.cost_id = dim_cost.cost_id
+WHERE action_cost <> 0
+
+
+-- What is the average cost of cards based on category ?
+SELECT 
+    fact_card_potential.category_id,
+    category_name,
+    ROUND(AVG(action_cost),2) AS avg_cost
+FROM fact_card_potential
+LEFT JOIN dim_cost ON fact_card_potential.cost_id = dim_cost.cost_id
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+GROUP BY 
+    fact_card_potential.category_id,
+    category_name;
+-- Check if its right just by looking at animal (category 1)
+SELECT 
+    ROUND(AVG(action_cost),2) AS avg_cost
+FROM fact_card_potential
+LEFT JOIN dim_cost ON fact_card_potential.cost_id = dim_cost.cost_id
+WHERE category_id = 1
 
 
 -- Which cards are the most efficient to play?
@@ -180,3 +210,54 @@ WHERE fact_card_potential.category_id = 1
 AND animal_tag IS NOT NULL
 GROUP BY animal_tag
 ORDER BY avg_animal_tag_efficiency DESC;
+
+
+-- What is the average cost of cards from each habitat ?
+SELECT 
+    habitat_1 AS habitat,
+    ROUND(AVG(action_cost), 2) AS avg_habitat_cost
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+LEFT JOIN dim_cost ON fact_card_potential.cost_id = dim_cost.cost_id 
+WHERE habitat_1 IS NOT NULL 
+GROUP BY habitat_1
+ORDER BY avg_habitat_cost DESC;
+
+
+-- What is the average cost of animals from each habitat ?
+SELECT 
+    habitat_1 AS habitat,
+    ROUND(AVG(action_cost), 2) AS avg_habitat_cost
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+LEFT JOIN dim_cost ON fact_card_potential.cost_id = dim_cost.cost_id 
+WHERE habitat_1 IS NOT NULL 
+AND fact_card_potential.category_id = 1
+GROUP BY habitat_1
+ORDER BY avg_habitat_cost DESC;
+
+
+-- Which animal is the most efficient of each animal type ?
+SELECT DISTINCT ON (animal_tag)
+    card_name,
+    animal_tag,
+    ROUND(potential_efficiency_ratio, 2) AS max_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 1
+ORDER BY animal_tag, potential_efficiency_ratio DESC;
+
+
+-- Which continent is the most efficient of each animal type ?
+SELECT DISTINCT ON (continent)
+    card_name,
+    continent,
+    ROUND(potential_efficiency_ratio, 2) AS max_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 1
+ORDER BY continent, potential_efficiency_ratio DESC;
