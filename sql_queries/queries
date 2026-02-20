@@ -41,6 +41,15 @@ FROM fact_card_potential
 LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 WHERE couple IS TRUE;
 
+-- OR how many pairs are there ?
+SELECT 
+    COUNT(card_name)/2 AS number_of_pairs
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
+WHERE couple IS TRUE
+
+
+
 
 
 
