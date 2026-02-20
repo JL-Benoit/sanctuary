@@ -21,3 +21,56 @@ LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
 WHERE fact_card_potential.category_id = 1
 ORDER BY potential_efficiency_ratio DESC;
+
+
+-- Which building is the most efficient ?
+SELECT 
+    fact_card_potential.card_id,
+    card_name,
+    category_name,
+    ROUND(potential_efficiency_ratio,2)
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 2
+ORDER BY potential_efficiency_ratio DESC;
+
+
+-- Which project is the most efficient ?
+SELECT 
+    fact_card_potential.card_id,
+    card_name,
+    category_name,
+    ROUND(potential_efficiency_ratio,2)
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 3
+ORDER BY potential_efficiency_ratio DESC;
+
+
+-- Which habitat is the most efficient overall ?
+SELECT 
+    habitat_1 AS habitat,
+    COUNT(fact_card_potential.card_id) AS total_card,
+    ROUND(AVG(potential_efficiency_ratio), 2) AS avg_habitat_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE habitat_1 IS NOT NULL 
+GROUP BY habitat_1
+ORDER BY avg_habitat_efficiency DESC;
+
+
+
+-- Which habitat is the most efficient for animals ?
+SELECT 
+    habitat_1 AS habitat,
+    COUNT(fact_card_potential.card_id) AS total_card,
+    ROUND(AVG(potential_efficiency_ratio), 2) AS avg_habitat_efficiency
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
+WHERE fact_card_potential.category_id = 1
+GROUP BY habitat_1
+ORDER BY avg_habitat_efficiency DESC;
