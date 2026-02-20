@@ -1,5 +1,26 @@
--- Which cards are the most efficient to play?
+-- How many cards are there in each category ?
+SELECT
+    category_name,
+    COUNT(fact_card_potential.category_id) AS count_of_cards
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id 
+GROUP BY category_name
+ORDER BY count_of_cards DESC;
 
+
+-- How many cards per continent ?
+SELECT
+    category_name,
+    COUNT(fact_card_potential.category_id) AS count_of_cards
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id 
+GROUP BY category_name
+ORDER BY count_of_cards DESC;
+
+
+-- Which cards are the most efficient to play?
 SELECT 
     fact_card_potential.card_id,
     card_name,
@@ -7,7 +28,6 @@ SELECT
 FROM fact_card_potential
 LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
 ORDER BY potential_efficiency_ratio DESC;
-
 
 
 -- Which animal is the most efficient ?
@@ -60,7 +80,6 @@ LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.categor
 WHERE habitat_1 IS NOT NULL 
 GROUP BY habitat_1
 ORDER BY avg_habitat_efficiency DESC;
-
 
 
 -- Which habitat is the most efficient for animals ?
