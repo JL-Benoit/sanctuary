@@ -1,0 +1,7 @@
+SELECT 
+    fact_card_potential.card_id,
+    card_name,
+    ROUND(potential_efficiency_ratio,2)
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id 
+ORDER BY potential_efficiency_ratio DESC;

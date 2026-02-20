@@ -1,0 +1,136 @@
+﻿card_id,card_name,habitat_1,habitat_2,continent,animal_tag,couple
+1,Lion M,rock,,africa,predator,1
+2,Lion F,rock,,africa,predator,1
+3,Dingo M,rock,,australia,predator,1
+4,Dingo F,rock,,australia,predator,1
+5,Loutre d'Europe M ,water,,europe,predator,1
+6,Loutre d'Europe F,water,,europe,predator,1
+7,Caracal,rock,,africa,predator,0
+8,Lion de mer Australien,water,,australia,predator,0
+9,Ours Brun d'Europe,forest,,europe,predator,0
+10,Tigre de Sumatra F,water,,asia,predator,1
+11,Tigre de Sumatra M,water,,asia,predator,1
+12,Jaguar M,forest,,america,predator,1
+13,Jaguar F,forest,,america,predator,1
+14,Calao Bicorne ,forest,,asia,bird,0
+15,Martin Chasseur Géant,rock,,australia,bird,0
+16,Toucan Toco,rock,,america,bird,0
+17,Harfang des Neiges ,rock,,europe,bird,0
+18,Autruche d'Afrique,rock,,africa,bird,0
+19,Flamant Rose,water,,africa,bird,0
+20,Cigogne Blanche F,forest,,europe,bird,1
+21,Cigogne Blanche M,forest,,europe,bird,1
+22,Ara Rouge M,forest,,america,bird,1
+23,Ara Rouge F,forest,,america,bird,1
+24,Pelican à Lunettes M,water,,australia,bird,1
+25,Pelican à Lunettes F,water,,australia,bird,1
+26,Paon Spicifère,undefined,,asia,bird,0
+27,Panda Géant,rock,,asia,herbivore,0
+28,Rhinocéros Indien F,water,,asia,herbivore,1
+29,Rhinocéros Indien M,water,,asia,herbivore,1
+30,Éléphant d'Afrique,undefined,,africa,herbivore,0
+31,Bouquetin M,rock,,europe,herbivore,1
+32,Bouquetin F,rock,,europe,herbivore,1
+33,Wallaby a Cou rouge,water,,australia,herbivore,0
+34,Capybara M,water,,america,herbivore,1
+35,Capybara F,water,,america,herbivore,1
+36,Girafe F,forest,,africa,herbivore,1
+37,Girafe M,forest,,africa,herbivore,1
+38,Koala M,forest,,australia,herbivore,1
+39,Koala F,forest,,australia,herbivore,1
+40,Diable Cornu F,rock,,australia,reptile,1
+41,Diable Cornu M,rock,,australia,reptile,1
+42,Dragon d'Eau Chinois,water,,asia,reptile,0
+43,Tortue des Galapagos ,undefined,,america,reptile,0
+44,Crocodile du Nil F,water,,africa,reptile,1
+45,Crocodile du Nil M,water,,africa,reptile,1
+46,Iguane Vert,forest,,america,reptile,0
+47,Anole Vert,forest,,america,reptile,0
+48,Cistude d'Europe,water,,europe,reptile,0
+49,Lézard des Murailles,rock,,europe,reptile,0
+50,Python Molure M,rock,,asia,reptile,1
+51,Python Molure F,rock,,asia,reptile,1
+52,Taipan du Désert,rock,,australia,reptile,0
+53,Macaque de Barbarie F,water,,europe,primate,1
+54,Macaque de Barbarie M,water,,europe,primate,1
+55,Singe-Aragnée Commun M,forest,,america,primate,1
+56,Singe-Aragnée Commun F,forest,,america,primate,1
+57,Babouin Hamadryas M,rock,,africa,primate,1
+58,Babouin Hamadryas F,rock,,africa,primate,1
+59,Macaque Japonais,water,,asia,primate,0
+60,Semnopithèque Obscur F,forest,,asia,primate,1
+61,Semnopithèque Obscur M,forest,,asia,primate,1
+62,Colobe Guéréza,forest,,africa,primate,1
+63,Saimiri,forest,,america,primate,0
+64,Cochon Nain,undefined,,,domestic,0
+65,Ane,undefined,,,domestic,0
+66,Mouton,undefined,,,domestic,0
+67,Poney,undefined,,,domestic,0
+68,Chèvre,undefined,,,domestic,0
+69,Alpaga,undefined,,,domestic,0
+70,Lapin,undefined,,,domestic,0
+71,Hydrologue,water,,,,0
+72,Géologue,rock,,,,0
+73,Dendrologue,forest,,,,0
+74,Expert Prédateurs,,,,predator,0
+75,Herpétologue,,,,reptile,0
+76,Primatologue,,,,primate,0
+77,Experte Herbivores,,,,herbivore,0
+78,Ornithologue,,,,bird,0
+79,Experte Petits Animaux,,,,,0
+80,Expert Grands Animaux,,,,,0
+81,Zoo Partenaire : Afrique,,,africa,,0
+82,Zoo Partenaire : Asie,,,asia,,0
+83,Zoo Partenaire : Europe,,,europe,,0
+84,Zoo Partenaire : Amériques,,,america,,0
+85,Zoo Partenaire : Australie,,,australia,,0
+86,Parc Nat. : Amboseli,rock,,africa,,0
+87,Parc Nat. : Chitwan,water,,asia,,0
+88,Parc Nat. : Yellowstone,forest,,america,,0
+89,Parc Nat. : Écrins,water,,europe,,0
+90,Parc Nat. : Port Campbell,rock,,australia,,0
+91,Canyon,water,rock,,,0
+92,Savane,forest,rock,,,0
+93,Basse Montagne,forest,rock,,,0
+94,Jungle,forest,water,,,0
+95,Forêt de Bambous,forest,water,,,0
+96,Reproduction : Oiseaux,,,,bird,0
+97,Reproduction : Herbivores,,,,herbivore,0
+98,Reproduction : Primates,,,,primate,0
+99,Reproduction : Prédateurs,,,,predator,0
+100,Reproduction : Reptiles,,,,reptile,0
+101,Zone de l'Outback,,,australia,,0
+102,Zone Alpine,,,europe,,0
+103,Zone de Sumatra,,,asia,,0
+104,Zone d'Okavango,,,africa,,0
+105,Zone de l'Amazone,,,america,,0
+106,Fosse des Prédateurs,,,,predator,0
+107,Enclos des Primates,,,,primate,0
+108,Volière,,,,bird,0
+109,Vivarium,,,,reptile,0
+110,Parc des Herbivores ,,,,herbivore,0
+111,Parc Forestier,forest,,,,0
+112,Téléphérique,rock,,,,0
+113,Aquarium,water,,,,0
+114,Parc Aquatique,water,,,,0
+115,Cabane,forest,,,,0
+116,Parc Aventure,rock,,,,0
+117,Point d'Observation,rock,,,,0
+118,Point d'Observation,forest,,,,0
+119,Point d'Observation,water,,,,0
+120,Administration,,,,,0
+121,Paroi de Verre,,,,,0
+122,Pavillon d'Asie,,,asia,,0
+123,Pavillon des Amériques,,,america,,0
+124,Pavillon d'Afrique,,,africa,,0
+125,Pavillon d'Europe,,,europe,,0
+126,Pavillon d'Australie,,,australia,,0
+127,Parc ,,,,,0
+128,Salle de Conférence,,,,,0
+129,Cuisine du Zoo,,,,,0
+130,Salle d'Exposition,,,,,0
+131,Bibliothèque,,,,,0
+132,École du Zoo,,,,,0
+133,Fontaine,,,,,0
+134,Site d'Excavation,,,,,0
+135,Statue,,,,,0

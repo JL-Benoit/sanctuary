@@ -1,0 +1,74 @@
+-- Create all the tables necessary
+
+-- Create card table
+CREATE TABLE dim_card
+(
+    card_id INT PRIMARY KEY,
+    card_name VARCHAR (255),
+    habitat_1 VARCHAR (255),
+    habitat_2 VARCHAR(255),
+    continent VARCHAR (255), 
+    animal_tag VARCHAR (255),
+    couple BOOLEAN
+);
+
+-- Create habitat table 
+CREATE TABLE dim_habitat
+(
+    habitat_id INT PRIMARY KEY,
+    habitat_name VARCHAR (255)
+);
+
+-- Create category table 
+CREATE TABLE dim_category
+(
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR (255)
+);
+
+-- Create cost table 
+CREATE TABLE dim_cost
+(
+    cost_id INT PRIMARY KEY,
+    action_cost INT
+);
+
+-- Create effect table 
+CREATE TABLE dim_effect
+(
+    effect_id INT PRIMARY KEY,
+    effect_type VARCHAR (255),
+    effect_points_min NUMERIC(12,4),
+    effect_points_max NUMERIC(12,4)
+);
+
+-- Create fact table
+CREATE TABLE fact_card_potential
+(
+    card_id INT,
+    category_id INT,
+    effect_id INT,
+    cost_id INT,
+    base_points_min NUMERIC(12,4),
+    base_points_max NUMERIC(12,4),
+    effects_points NUMERIC(12,4),
+    terrain_potential INT,
+    couple_bonus INT,
+    action_potential NUMERIC(12,4),
+    icons_required NUMERIC(12,4),
+    requirement_cost NUMERIC(12,4), 
+    total_potential_value NUMERIC(12,4),
+    potential_efficiency_ratio NUMERIC(12,4),
+    FOREIGN KEY (card_id) REFERENCES dim_card (card_id),
+    FOREIGN KEY (category_id) REFERENCES dim_category (category_id),
+    FOREIGN KEY (effect_id) REFERENCES dim_effect (effect_id),
+    FOREIGN KEY (cost_id) REFERENCES dim_cost (cost_id)
+);
+
+-- Set ownership of the tables to the postgres user
+ALTER TABLE fact_card_potential OWNER to postgres;
+ALTER TABLE dim_card OWNER to postgres;
+ALTER TABLE dim_category OWNER to postgres;
+ALTER TABLE dim_cost OWNER to postgres;
+ALTER TABLE dim_effect OWNER to postgres;
+ALTER TABLE dim_habitat OWNER to postgres;
