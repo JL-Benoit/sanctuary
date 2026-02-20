@@ -4,3 +4,9 @@
 \copy dim_effect FROM 'C:\Users\jeanb\Desktop\Data Analysis\sanctuary\sanctuary_csv\sanctuary_dim_effect.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 \copy dim_habitat FROM 'C:\Users\jeanb\Desktop\Data Analysis\sanctuary\sanctuary_csv\sanctuary_dim_habitat.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 \copy fact_card_potential FROM 'C:\Users\jeanb\Desktop\Data Analysis\sanctuary\sanctuary_csv\sanctuary_fact_card_potential.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+
+
+UPDATE dim_card
+SET couple = false
+WHERE card_id = 62 
+  AND couple = true;

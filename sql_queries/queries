@@ -36,8 +36,7 @@ ORDER BY count_of_animal_tags DESC;
 -- How many animals can form pairs ?
 SELECT 
     fact_card_potential.card_id,
-    card_name,
-    couple_bonus
+    card_name
 FROM fact_card_potential
 LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 WHERE couple IS TRUE;
