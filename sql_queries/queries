@@ -295,3 +295,72 @@ FROM (
 
 ) AS result
 ORDER BY avg_efficiency DESC;
+
+
+-- What pair habitat/continent works best efficiency wise ?
+SELECT DISTINCT ON (d.continent)
+    d.continent,
+    d.habitat_1,
+    ROUND(AVG(f.potential_efficiency_ratio), 2) AS avg_efficiency
+FROM dim_card AS d
+JOIN fact_card_potential AS f
+    ON d.card_id = f.card_id
+WHERE d.continent IS NOT NULL
+  AND d.habitat_1 IS NOT NULL
+  AND d.habitat_1 <> 'undefined'
+GROUP BY d.continent, d.habitat_1
+ORDER BY d.continent, avg_efficiency DESC;
+
+
+-- What pair habitat/animal_tag works best efficiency wise ?
+SELECT DISTINCT ON (d.animal_tag)
+    d.animal_tag,
+    d.habitat_1,
+    ROUND(AVG(f.potential_efficiency_ratio), 2) AS avg_efficiency
+FROM dim_card AS d
+JOIN fact_card_potential AS f
+    ON d.card_id = f.card_id
+WHERE d.animal_tag IS NOT NULL
+  AND d.habitat_1 IS NOT NULL
+  AND d.habitat_1 <> 'undefined'
+GROUP BY d.animal_tag, d.habitat_1
+ORDER BY d.animal_tag, avg_efficiency DESC;
+
+
+-- What pair animal tag/continent works best efficiency wise ?
+SELECT DISTINCT ON (d.continent)
+    d.continent,
+    d.animal_tag,
+    ROUND(AVG(f.potential_efficiency_ratio), 2) AS avg_efficiency
+FROM dim_card AS d
+JOIN fact_card_potential AS f
+    ON d.card_id = f.card_id
+WHERE d.continent IS NOT NULL
+  AND d.animal_tag IS NOT NULL
+  AND d.habitat_1 <> 'undefined'
+GROUP BY d.continent, d.animal_tag
+ORDER BY d.continent, avg_efficiency DESC;
+
+
+-- For each habitat, which cards are above average ?
+WITH habitat_avg AS (
+        SELECT 
+            d.habitat_1,
+            ROUND(AVG(f.potential_efficiency_ratio),2) AS avg_efficiency
+        FROM fact_card_potential AS f
+        LEFT JOIN dim_card AS d ON f.card_id = d.card_id 
+        WHERE habitat_1 IS NOT NULL
+        GROUP BY  
+            d.habitat_1
+)
+SELECT 
+    d.habitat_1,
+    f.card_id,
+    d.card_name,
+    ROUND(f.potential_efficiency_ratio, 2) AS card_efficiency,
+    h.avg_efficiency
+FROM fact_card_potential AS f
+JOIN dim_card AS d ON f.card_id = d.card_id
+JOIN habitat_avg AS h ON d.habitat_1 = h.habitat_1
+WHERE f.potential_efficiency_ratio > h.avg_efficiency
+ORDER BY d.habitat_1, card_efficiency DESC;

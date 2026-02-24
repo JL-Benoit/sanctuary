@@ -10,7 +10,9 @@ SELECT *
 FROM fact_card_potential;
 
 SELECT *
-FROM dim_card;
+FROM dim_card
+WHERE animal_tag = 'reptile'
+AND habitat_1 = 'rock';
 
 -- Checking to see if i can use Looker Studio
 CREATE OR REPLACE VIEW v_looker_cards AS
