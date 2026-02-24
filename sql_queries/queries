@@ -364,3 +364,51 @@ JOIN dim_card AS d ON f.card_id = d.card_id
 JOIN habitat_avg AS h ON d.habitat_1 = h.habitat_1
 WHERE f.potential_efficiency_ratio > h.avg_efficiency
 ORDER BY d.habitat_1, card_efficiency DESC;
+
+
+-- For each continent, which cards are above average ?
+WITH continent_avg AS (
+        SELECT 
+            d.continent,
+            ROUND(AVG(f.potential_efficiency_ratio),2) AS avg_efficiency
+        FROM fact_card_potential AS f
+        LEFT JOIN dim_card AS d ON f.card_id = d.card_id 
+        WHERE continent IS NOT NULL
+        GROUP BY  
+            d.continent
+)
+SELECT 
+    d.continent,
+    f.card_id,
+    d.card_name,
+    ROUND(f.potential_efficiency_ratio, 2) AS card_efficiency,
+    h.avg_efficiency
+FROM fact_card_potential AS f
+JOIN dim_card AS d ON f.card_id = d.card_id
+JOIN continent_avg AS h ON d.continent = h.continent
+WHERE f.potential_efficiency_ratio > h.avg_efficiency
+ORDER BY d.continent, card_efficiency DESC;
+
+
+-- For each animal tag, which cards are above average ?
+WITH animal_tag_avg AS (
+        SELECT 
+            d.animal_tag,
+            ROUND(AVG(f.potential_efficiency_ratio),2) AS avg_efficiency
+        FROM fact_card_potential AS f
+        LEFT JOIN dim_card AS d ON f.card_id = d.card_id 
+        WHERE animal_tag IS NOT NULL
+        GROUP BY  
+            d.animal_tag
+)
+SELECT 
+    d.animal_tag,
+    f.card_id,
+    d.card_name,
+    ROUND(f.potential_efficiency_ratio, 2) AS card_efficiency,
+    h.avg_efficiency
+FROM fact_card_potential AS f
+JOIN dim_card AS d ON f.card_id = d.card_id
+JOIN animal_tag_avg AS h ON d.animal_tag = h.animal_tag
+WHERE f.potential_efficiency_ratio > h.avg_efficiency
+ORDER BY d.animal_tag, card_efficiency DESC;
