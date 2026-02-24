@@ -7,4 +7,39 @@ LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 ORDER BY potential_efficiency_ratio DESC;
 
 SELECT *
-FROM fact_card_potential
+FROM fact_card_potential;
+
+SELECT *
+FROM dim_card;
+
+-- Checking to see if i can use Looker Studio
+CREATE OR REPLACE VIEW v_looker_cards AS
+SELECT
+    f.card_id,
+    f.base_points_min,
+    f.base_points_max,
+    f.effects_points,
+    f.terrain_potential,
+    f.couple_bonus,
+    f.action_potential,
+    f.icons_required,
+    f.requirement_cost,
+    f.total_potential_value,
+    f.potential_efficiency_ratio,
+    c.card_name,
+    c.habitat_1,
+    c.habitat_2,
+    c.continent,
+    c.animal_tag,
+    c.couple,
+    cat.category_name,
+    h.habitat_name,
+    e.effect_type,
+    e.effect_points_min,
+    e.effect_points_max,
+    co.action_cost
+FROM fact_card_potential f
+LEFT JOIN dim_card c      ON f.card_id = c.card_id
+LEFT JOIN dim_category cat ON f.category_id = cat.category_id
+LEFT JOIN dim_effect e    ON f.effect_id = e.effect_id
+LEFT JOIN dim_cost co     ON f.cost_id = co.cost_id;

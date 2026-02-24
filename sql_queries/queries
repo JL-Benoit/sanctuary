@@ -239,7 +239,7 @@ GROUP BY habitat_1
 ORDER BY avg_habitat_cost DESC;
 
 
--- Which animal is the most efficient of each animal type ?
+-- Which animal is the most efficient of each animal tag ?
 SELECT DISTINCT ON (animal_tag)
     card_name,
     animal_tag,
@@ -251,7 +251,7 @@ WHERE fact_card_potential.category_id = 1
 ORDER BY animal_tag, potential_efficiency_ratio DESC;
 
 
--- Which continent is the most efficient of each animal type ?
+-- Which animal is the most efficient of each continent ?
 SELECT DISTINCT ON (continent)
     card_name,
     continent,
@@ -261,3 +261,37 @@ LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 LEFT JOIN dim_category ON fact_card_potential.category_id = dim_category.category_id
 WHERE fact_card_potential.category_id = 1
 ORDER BY continent, potential_efficiency_ratio DESC;
+
+
+
+-- What is most important in terms of efficiency (continent, animal tag, habitat) ? 
+SELECT category_type, avg_efficiency
+FROM (
+    
+    SELECT
+        'animal_tag' AS category_type,
+        ROUND(AVG(f.potential_efficiency_ratio), 2) AS avg_efficiency
+    FROM dim_card AS d
+    JOIN fact_card_potential AS f ON d.card_id = f.card_id
+    WHERE d.animal_tag IS NOT NULL
+
+    UNION ALL
+
+    SELECT
+        'continent',
+        ROUND(AVG(f.potential_efficiency_ratio), 2)
+    FROM dim_card AS d
+    JOIN fact_card_potential AS f ON d.card_id = f.card_id
+    WHERE d.continent IS NOT NULL
+
+    UNION ALL
+
+    SELECT
+        'habitat',
+        ROUND(AVG(f.potential_efficiency_ratio), 2)
+    FROM dim_card AS d
+    JOIN fact_card_potential AS f ON d.card_id = f.card_id
+    WHERE d.habitat_1 IS NOT NULL
+
+) AS result
+ORDER BY avg_efficiency DESC;
