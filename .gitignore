@@ -1,5 +1,4 @@
 images/
 .vscode/
 sanctuary_bi.pbix
-git rm -r --cached images
-git rm -r --cached sanctuary_bi.pbix
+
