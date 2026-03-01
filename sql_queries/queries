@@ -49,6 +49,24 @@ LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
 WHERE couple IS TRUE
 
 
+-- How efficient are couple in general ?
+SELECT 
+    ROUND(AVG(potential_efficiency_ratio),2) AS avg_efficency_couples
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
+WHERE couple IS TRUE
+AND category_id = 1
+
+
+-- How efficient are non-couple animals in general ?
+SELECT 
+    ROUND(AVG(potential_efficiency_ratio),2) AS avg_efficency_couples
+FROM fact_card_potential
+LEFT JOIN dim_card ON fact_card_potential.card_id = dim_card.card_id
+WHERE category_id = 1
+AND couple IS FALSE
+
+
 -- What is the average cost of all cards ?
 SELECT 
     ROUND(AVG(action_cost),2) AS avg_cost
